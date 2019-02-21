@@ -12,7 +12,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 2. Install this plugin: `npm install -g homebridge-web-thermostat`
 3. Update your `config.json` file
 
-## Configuration example
+## Configuration
 
 ```json
 "accessories": [
@@ -24,9 +24,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 ]
 ```
 
-### Structure
-
-#### Core
+### Core
 | Key | Description |
 | --- | --- |
 | `accessory` | Must be `Thermostat` |
@@ -34,7 +32,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | `apiroute` | Root URL of your Thermostat device (excluding the rest of the requests) |
 | `pollInterval` _(optional)_ | Time (in seconds) between when homebridge will check the `/status` of your thermostat (`60` is default) |
 
-#### Other fields
+### Optional fields
 | Key | Description |
 | --- | --- |
 | `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units (`0` is default) |
@@ -43,7 +41,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app (`30` is default) |
 | `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app (`15` is default) |
 
-#### Additional options
+### Additional options
 | Key | Description |
 | --- | --- |
 | `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable (`5000` is default) |
@@ -68,7 +66,7 @@ Your API should be able to:
 }
 ```
 
-**Note:** You can also add the `currentRelativeHumidity` and `targetRelativeHumidity` fields if enabled in the `config.json` (read [Structure](#structure))
+**Note:** You can also add the `currentRelativeHumidity` and `targetRelativeHumidity` fields if enabled in the `config.json` (read [Configuration](#configuration))
 
 2. Set `targetHeatingCoolingState` when it recieves:
 ```
