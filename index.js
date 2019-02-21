@@ -65,7 +65,7 @@ Thermostat.prototype = {
   _getStatus: function(callback) {
     this.log("[+] Getting status from:", this.apiroute+"/status");
     var url = this.apiroute+"/status";
-    this._httpRequest(url, '', 'GET', function (error, response, responseBody) {
+    this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
         if (error) {
           this.log("[!] Error getting status: %s", error.message);
   				callback(error);
@@ -90,7 +90,7 @@ Thermostat.prototype = {
   setTargetHeatingCoolingState: function(value, callback) {
     this.log("[+] setTargetHeatingCoolingState to %s", value);
     url = this.apiroute + '/targetHeatingCoolingState/' + value;
-    this._httpRequest(url, '', 'GET', function (error, response, responseBody) {
+    this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
         if (error) {
           this.log("[!] Error setting targetHeatingCoolingState: %s", error.message);
 					callback(error);
@@ -105,7 +105,7 @@ Thermostat.prototype = {
   setTargetTemperature: function(value, callback) {
     this.log("[+] setTargetTemperature to %s", value);
     var url = this.apiroute+"/targetTemperature/"+value;
-    this._httpRequest(url, '', 'GET', function (error, response, responseBody) {
+    this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
         if (error) {
           this.log("[!] Error setting targetTemperature", error.message);
   				callback(error);
@@ -119,7 +119,7 @@ Thermostat.prototype = {
   setTargetRelativeHumidity: function(value, callback) {
     this.log("[+] setTargetRelativeHumidity to %s", value);
     var url = this.apiroute+"/targetRelativeHumidity/"+value;
-    this._httpRequest(url, '', 'GET', function (error, response, responseBody) {
+    this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
         if (error) {
           this.log("[!] Error setting targetRelativeHumidity", error.message);
   				callback(error);
@@ -173,12 +173,10 @@ Thermostat.prototype = {
 				minStep: 1
 			});
 
-      // This fills the homebridge cache on startup with current values, so that any request before the first poll has valid values
       this._getStatus(function() {
 
       }.bind(this));
 
-      // This polls the thermostat device once per minute and updates homebridge with the current values
       setInterval(function() {
         this._getStatus(function() {
         }.bind(this));
