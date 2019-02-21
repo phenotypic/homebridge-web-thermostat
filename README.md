@@ -1,11 +1,11 @@
-# homebridge-http-thermostat
+# homebridge-web-thermostat
 
 #### Homebridge plugin to control a web-based thermostat
 
 ## Installation
 
 1. Install [homebridge](https://github.com/nfarina/homebridge#installation-details)
-2. Install this plugin: `npm install -g homebridge-http-thermostat`
+2. Install this plugin: `npm install -g homebridge-web-thermostat`
 3. Update your `config.json` file (See below).
 
 ## Configuration example
