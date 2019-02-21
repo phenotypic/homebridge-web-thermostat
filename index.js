@@ -4,7 +4,7 @@ var request = require("request");
 module.exports = function(homebridge){
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory("homebridge-http-thermostat", "Thermostat", Thermostat);
+  homebridge.registerAccessory("homebridge-web-thermostat", "Thermostat", Thermostat);
 };
 
 function Thermostat(log, config) {
