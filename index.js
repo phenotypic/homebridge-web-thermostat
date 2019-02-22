@@ -70,18 +70,23 @@ Thermostat.prototype = {
           this.log("[!] Error getting status: %s", error.message);
   				callback(error);
         } else {
-  				var json = JSON.parse(responseBody);
-          // Update Characteristics
           this.log("[*] Thermostat response: ", responseBody);
+  				var json = JSON.parse(responseBody);
           this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature);
+          this.log("[*] Updated TargetTemperature to %s", json.targetTemperature);
           this.service.getCharacteristic(Characteristic.CurrentTemperature).updateValue(json.currentTemperature);
+          this.log("[*] Updated CurrentTemperature to %s", json.currentTemperature);
           this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState).updateValue(json.targetHeatingCoolingState);
+          this.log("[*] Updated TargetHeatingCoolingState to %s", json.targetHeatingCoolingState);
           this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(json.currentHeatingCoolingState);
+          this.log("[*] Updated CurrentHeatingCoolingState to %s", json.currentHeatingCoolingState);
           if (this.currentHumidity) {
             this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity);
+            this.log("[*] Updated CurrentRelativeHumidity to %s", json.currentRelativeHumidity);
           }
           if (this.targetHumidity) {
             this.service.getCharacteristic(Characteristic.TargetRelativeHumidity).updateValue(json.targetRelativeHumidity);
+            this.log("[*] Updated TargetRelativeHumidity to %s", json.targetRelativeHumidity);
           }
   				callback();
     }}.bind(this));
