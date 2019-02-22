@@ -56,7 +56,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 
 Your API should be able to:
 
-1. Return thermostat info when it recieves `/status` in the JSON format like below:
+1. Return thermostat info when it receives `/status` in the JSON format like below:
 ```
 {
     "targetHeatingCoolingState": INT_VALUE_0_TO_3,
@@ -66,19 +66,19 @@ Your API should be able to:
 }
 ```
 
-**Note:** You can also add the `currentRelativeHumidity` and `targetRelativeHumidity` fields if enabled in the `config.json` (read [Configuration](#configuration))
+**Note:** You must add the `currentRelativeHumidity` and `targetRelativeHumidity` fields respectively if enabled in the `config.json` (read [Configuration](#configuration))
 
-2. Set `targetHeatingCoolingState` when it recieves:
+2. Set `targetHeatingCoolingState` when it receives:
 ```
 /targetHeatingCoolingState/{INT_VALUE_0_TO_3}
 ```
 
-3. Set `targetTemperature` when it recieves:
+3. Set `targetTemperature` when it receives:
 ```
 /targetTemperature/{INT_VALUE}
 ```
 
-4. If enabled in `config.json` (read [Structure](#structure)), set `targetRelativeHumidity` when it recieves:
+4. Set `targetRelativeHumidity` (**if enabled in the `config.json`**) when it receives:
 ```
 /targetRelativeHumidity/{FLOAT_VALUE}
 ```
