@@ -66,7 +66,7 @@ Your API should be able to:
 }
 ```
 
-**Note:** You must add the `currentRelativeHumidity` and `targetRelativeHumidity` fields respectively if enabled in the `config.json` (read [Configuration](#configuration))
+**Note:** You must also include the `currentRelativeHumidity` and `targetRelativeHumidity` fields, respectively, if enabled in the `config.json` (read [Configuration](#configuration))
 
 2. Set `targetHeatingCoolingState` when it receives:
 ```
