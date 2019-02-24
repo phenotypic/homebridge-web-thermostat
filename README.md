@@ -69,7 +69,7 @@ Your API should be able to:
 }
 ```
 
-**Note:** You must also include the following in `/status` if enabled in the `config.json`:
+**Note:** You must also include the following fields in `/status` if enabled in the `config.json`:
 
 - `targetRelativeHumidity`
 - `currentRelativeHumidity`
