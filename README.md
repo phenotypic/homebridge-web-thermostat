@@ -40,6 +40,9 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | `targetHumidity` _(optional)_ | (`true` or `false`) Whether to include `targetRelativeHumidity` as a field in `/status` and be able to set it via `/targetRelativeHumidity` (`false` is default) |
 | `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app (`30` is default) |
 | `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app (`15` is default) |
+| `enableThresholds` _(optional)_ | (`true` or `false`) whether you want the thermostat accessory to have heating and cooling temperature bounds (`false` is default) |
+| `coolingThresholdTemperature` _(optional)_ | Cooling threshold temperature if thresholds are enabled (`30` is default) |
+| `heatingThresholdTemperature` _(optional)_ | Heating threshold temperature if thresholds are enabled (`20` is default) |
 
 ### Additional options
 | Key | Description |
