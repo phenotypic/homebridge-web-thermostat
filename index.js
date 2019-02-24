@@ -16,20 +16,20 @@ function Thermostat(log, config) {
   this.serial = config.serial || 'HTTP Serial Number';
 
   this.apiroute = config.apiroute;
+  this.pollInterval = config.pollInterval || 60;
+
   this.username = config.username || null;
   this.password = config.password || null;
   this.timeout = config.timeout || 5000;
   this.http_method = config.http_method || 'GET';
 
-  this.enableThresholds = config.enableThresholds || false;
+  this.temperatureThresholds = config.temperatureThresholds || false;
   this.coolingThresholdTemperature = config.coolingThresholdTemperature || 30;
   this.heatingThresholdTemperature = config.heatingThresholdTemperature || 20;
 
   this.currentHumidity = config.currentHumidity || false;
   this.targetHumidity = config.targetHumidity || false;
-
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0;
-  this.pollInterval = config.pollInterval || 60;
   this.maxTemp = config.maxTemp || 30;
   this.minTemp = config.minTemp || 15;
 
@@ -85,6 +85,12 @@ Thermostat.prototype = {
         this.log("[*] Updated TargetHeatingCoolingState:", json.targetHeatingCoolingState);
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(json.currentHeatingCoolingState);
         this.log("[*] Updated CurrentHeatingCoolingState:", json.currentHeatingCoolingState);
+        if (this.temperatureThresholds) {
+          this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(json.coolingThresholdTemperature);
+          this.log("[*] Updated CoolingThresholdTemperature:", json.coolingThresholdTemperature);
+          this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(json.heatingThresholdTemperature);
+          this.log("[*] Updated HeatingThresholdTemperature:", json.heatingThresholdTemperature);
+        }
         if (this.currentHumidity) {
           this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity);
           this.log("[*] Updated CurrentRelativeHumidity:", json.currentRelativeHumidity);
@@ -145,13 +151,33 @@ Thermostat.prototype = {
   },
 
   setCoolingThresholdTemperature: function(value, callback) {
-    this.log("[+] Set coolingThresholdTemperature to:", value);
-    callback();
+    var url = this.apiroute + "/coolingThresholdTemperature/" + value;
+    this.log("[+] Setting coolingThresholdTemperature:", url);
+
+    this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
+      if (error) {
+        this.log("[!] Error setting coolingThresholdTemperature", error.message);
+        callback(error);
+      } else {
+        this.log("[*] Sucessfully set coolingThresholdTemperature to:", value);
+        callback();
+      }
+    }.bind(this));
   },
 
   setHeatingThresholdTemperature: function(value, callback) {
-    this.log("[+] Set heatingThresholdTemperature to:", value);
-    callback();
+    var url = this.apiroute + "/heatingThresholdTemperature/" + value;
+    this.log("[+] Setting heatingThresholdTemperature:", url);
+
+    this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
+      if (error) {
+        this.log("[!] Error setting heatingThresholdTemperature", error.message);
+        callback(error);
+      } else {
+        this.log("[*] Sucessfully set heatingThresholdTemperature to:", value);
+        callback();
+      }
+    }.bind(this));
   },
 
   getServices: function() {
@@ -164,17 +190,6 @@ Thermostat.prototype = {
 
     this.service.getCharacteristic(Characteristic.TemperatureDisplayUnits).updateValue(this.temperatureDisplayUnits);
 
-    if (this.enableThresholds) {
-      this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(this.coolingThresholdTemperature);
-      this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(this.heatingThresholdTemperature);
-      this.service
-        .getCharacteristic(Characteristic.CoolingThresholdTemperature)
-        .on('set', this.setCoolingThresholdTemperature.bind(this));
-      this.service
-        .getCharacteristic(Characteristic.HeatingThresholdTemperature)
-        .on('set', this.setHeatingThresholdTemperature.bind(this));
-    }
-
     this.service
       .getCharacteristic(Characteristic.TargetHeatingCoolingState)
       .on('set', this.setTargetHeatingCoolingState.bind(this));
@@ -182,12 +197,6 @@ Thermostat.prototype = {
     this.service
       .getCharacteristic(Characteristic.TargetTemperature)
       .on('set', this.setTargetTemperature.bind(this));
-
-    if (this.targetHumidity) {
-      this.service
-        .getCharacteristic(Characteristic.TargetRelativeHumidity)
-        .on('set', this.setTargetRelativeHumidity.bind(this));
-    }
 
     this.service.getCharacteristic(Characteristic.CurrentTemperature)
       .setProps({
@@ -202,6 +211,21 @@ Thermostat.prototype = {
         maxValue: this.maxTemp,
         minStep: 1
       });
+
+    if (this.temperatureThresholds) {
+      this.service
+        .getCharacteristic(Characteristic.CoolingThresholdTemperature)
+        .on('set', this.setCoolingThresholdTemperature.bind(this));
+      this.service
+        .getCharacteristic(Characteristic.HeatingThresholdTemperature)
+        .on('set', this.setHeatingThresholdTemperature.bind(this));
+    }
+
+    if (this.targetHumidity) {
+      this.service
+        .getCharacteristic(Characteristic.TargetRelativeHumidity)
+        .on('set', this.setTargetRelativeHumidity.bind(this));
+    }
 
     this._getStatus(function() {}.bind(this));
 
