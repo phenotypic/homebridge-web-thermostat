@@ -21,6 +21,10 @@ function Thermostat(log, config) {
   this.timeout = config.timeout || 5000;
   this.http_method = config.http_method || 'GET';
 
+  this.enableThresholds = config.enableThresholds || false;
+  this.coolingThresholdTemperature = config.coolingThresholdTemperature || 30;
+  this.heatingThresholdTemperature = config.heatingThresholdTemperature || 20;
+
   this.currentHumidity = config.currentHumidity || false;
   this.targetHumidity = config.targetHumidity || false;
 
@@ -140,6 +144,16 @@ Thermostat.prototype = {
     }.bind(this));
   },
 
+  setCoolingThresholdTemperature: function(value, callback) {
+    this.log("[+] Set coolingThresholdTemperature to:", value);
+    callback();
+  },
+
+  setHeatingThresholdTemperature: function(value, callback) {
+    this.log("[+] Set heatingThresholdTemperature to:", value);
+    callback();
+  },
+
   getServices: function() {
 
     this.informationService = new Service.AccessoryInformation();
@@ -148,7 +162,18 @@ Thermostat.prototype = {
       .setCharacteristic(Characteristic.Model, this.model)
       .setCharacteristic(Characteristic.SerialNumber, this.serial);
 
-    this.service.setCharacteristic(Characteristic.TemperatureDisplayUnits, this.temperatureDisplayUnits);
+    this.service.getCharacteristic(Characteristic.TemperatureDisplayUnits).updateValue(this.temperatureDisplayUnits);
+
+    if (this.enableThresholds) {
+      this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(this.coolingThresholdTemperature);
+      this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(this.heatingThresholdTemperature);
+      this.service
+        .getCharacteristic(Characteristic.CoolingThresholdTemperature)
+        .on('set', this.setCoolingThresholdTemperature.bind(this));
+      this.service
+        .getCharacteristic(Characteristic.HeatingThresholdTemperature)
+        .on('set', this.setHeatingThresholdTemperature.bind(this));
+    }
 
     this.service
       .getCharacteristic(Characteristic.TargetHeatingCoolingState)
