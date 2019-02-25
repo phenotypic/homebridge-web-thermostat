@@ -51,7 +51,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | `http_method` _(optional)_ | The HTTP method used to communicate with the thermostat | `GET` |
 | `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
 | `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
-| `model` _(optional)_ | Appears under "Model" for your accessory in the Home app | `homebridge-http-thermostat` |
+| `model` _(optional)_ | Appears under "Model" for your accessory in the Home app | `homebridge-web-thermostat` |
 | `serial` _(optional)_ | Appears under "Serial" for your accessory in the Home app | `HTTP Serial Number` |
 | `manufacturer` _(optional)_ | Appears under "Manufacturer" for your accessory in the Home app | `HTTP Manufacturer` |
 
