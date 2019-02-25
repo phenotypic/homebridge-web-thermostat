@@ -12,7 +12,7 @@ function Thermostat(log, config) {
 
   this.name = config.name;
   this.manufacturer = config.manufacturer || 'HTTP Manufacturer';
-  this.model = config.model || 'homebridge-http-thermostat';
+  this.model = config.model || 'homebridge-web-thermostat';
   this.serial = config.serial || 'HTTP Serial Number';
 
   this.apiroute = config.apiroute;
