@@ -25,35 +25,35 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 ```
 
 ### Core
-| Key | Description | Type | Default |
-| --- | --- | --- | --- |
-| `accessory` | Must be `Thermostat` | `string` | N/A |
-| `name` | Name to appear in the Home app | `string` | N/A |
-| `apiroute` | Root URL of your Thermostat device (excluding the rest of the requests) | `string` | N/A |
-| `pollInterval` _(optional)_ | Time between when homebridge will check the `/status` of your thermostat | `integer` (seconds) | `60` |
+| Key | Description | Default |
+| --- | --- | --- |
+| `accessory` | Must be `Thermostat` | N/A |
+| `name` | Name to appear in the Home app | N/A |
+| `apiroute` | Root URL of your Thermostat device (excluding the rest of the requests) | N/A |
+| `pollInterval` _(optional)_ | Time (in seconds) between when homebridge will check the `/status` of your thermostat | `60` |
 
 ### Optional fields
-| Key | Description | Type | Default |
-| --- | --- | --- | --- |
-| `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units | `integer` | `0` |
-| `currentHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `boolean` | `false` |
-| `targetHumidity` _(optional)_ | Whether to include `targetRelativeHumidity` as a field in `/status` and be able to set it via `/targetRelativeHumidity` | `boolean` | `false` |
-| `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app | `integer` | `30` |
-| `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app | `integer` | `15` |
-| `temperatureThresholds` _(optional)_ | Whether you want the thermostat accessory to have heating and cooling temperature bounds | `boolean` | `false` |
-| `coolingThresholdTemperature` _(optional)_ | Cooling threshold temperature if thresholds are enabled | `integer` | `30` |
-| `heatingThresholdTemperature` _(optional)_ | Heating threshold temperature if thresholds are enabled | `integer` | `20` |
+| Key | Description | Default |
+| --- | --- | --- |
+| `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
+| `currentHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
+| `targetHumidity` _(optional)_ | Whether to include `targetRelativeHumidity` as a field in `/status` and be able to set it via `/targetRelativeHumidity` | `false` |
+| `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app | `30` |
+| `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app | `15` |
+| `temperatureThresholds` _(optional)_ | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
+| `coolingThresholdTemperature` _(optional)_ | Cooling threshold temperature if thresholds are enabled | `30` |
+| `heatingThresholdTemperature` _(optional)_ | Heating threshold temperature if thresholds are enabled | `20` |
 
 ### Additional options
-| Key | Description | Type | Default |
-| --- | --- | --- | --- |
-| `timeout` _(optional)_ | Time until the accessory will be marked as "Not Responding" if it is unreachable | `integer` (milliseconds) | `5000` |
-| `http_method` _(optional)_ | The HTTP method used to communicate with the thermostat (`GET` is default) | `string` | `GET` |
-| `username` _(optional)_ | Username if HTTP authentication is enabled | `string` | N/A |
-| `password` _(optional)_ | Password if HTTP authentication is enabled | `string` | N/A |
-| `model` _(optional)_ | Appears under "Model" for your accessory in the Home app | `string` |`homebridge-http-thermostat` |
-| `serial` _(optional)_ | Appears under "Serial" for your accessory in the Home app | `string` | `HTTP Serial Number` |
-| `manufacturer` _(optional)_ | Appears under "Manufacturer" for your accessory in the Home app | `string` | `HTTP Manufacturer` |
+| Key | Description | Default |
+| --- | --- | --- |
+| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable | `5000` |
+| `http_method` _(optional)_ | The HTTP method used to communicate with the thermostat | `GET` |
+| `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
+| `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
+| `model` _(optional)_ | Appears under "Model" for your accessory in the Home app | `homebridge-http-thermostat` |
+| `serial` _(optional)_ | Appears under "Serial" for your accessory in the Home app | `HTTP Serial Number` |
+| `manufacturer` _(optional)_ | Appears under "Manufacturer" for your accessory in the Home app | `HTTP Manufacturer` |
 
 ## API Interfacing
 
