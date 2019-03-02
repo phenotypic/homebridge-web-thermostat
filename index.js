@@ -11,12 +11,12 @@ function Thermostat(log, config) {
   this.log = log;
 
   this.name = config.name;
-  this.manufacturer = config.manufacturer || 'HTTP Manufacturer';
-  this.model = config.model || 'homebridge-web-thermostat';
-  this.serial = config.serial || 'HTTP Serial Number';
-
   this.apiroute = config.apiroute;
   this.pollInterval = config.pollInterval || 60;
+
+  this.manufacturer = config.manufacturer || 'homebridge-web-thermostat';
+  this.model = config.model || this.apiroute;
+  this.serial = config.serial || 'Polling: ' + this.pollInterval;
 
   this.username = config.username || null;
   this.password = config.password || null;
