@@ -1,10 +1,10 @@
 var Service, Characteristic;
-var request = require("request");
+var request = require('request');
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory("homebridge-web-thermostat", "Thermostat", Thermostat);
+  homebridge.registerAccessory('homebridge-web-thermostat', 'Thermostat', Thermostat);
 };
 
 function Thermostat(log, config) {
@@ -14,9 +14,9 @@ function Thermostat(log, config) {
   this.apiroute = config.apiroute;
   this.pollInterval = config.pollInterval || 60;
 
-  this.manufacturer = config.manufacturer || 'homebridge-web-thermostat';
-  this.model = config.model || this.apiroute;
-  this.serial = config.serial || 'Polling: ' + this.pollInterval;
+  this.manufacturer = config.manufacturer || 'Tom Rodrigues';
+  this.serial = config.serial || this.apiroute;
+  this.model = config.model || 'homebridge-web-thermostat';
 
   this.username = config.username || null;
   this.password = config.password || null;
@@ -48,7 +48,7 @@ function Thermostat(log, config) {
 Thermostat.prototype = {
 
   identify: function(callback) {
-    this.log("Identify requested!");
+    this.log('Identify requested!');
     callback();
   },
 
@@ -67,37 +67,37 @@ Thermostat.prototype = {
   },
 
   _getStatus: function(callback) {
-    var url = this.apiroute + "/status";
-    this.log("[+] Getting status:", url);
+    var url = this.apiroute + '/status';
+    this.log('[+] Getting status:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error getting status: %s", error.message);
+        this.log('[!] Error getting status: %s', error.message);
         callback(error);
       } else {
         this.log("[*] Thermostat response:", responseBody);
         var json = JSON.parse(responseBody);
         this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature);
-        this.log("[*] Updated TargetTemperature:", json.targetTemperature);
+        this.log('[*] Updated TargetTemperature:', json.targetTemperature);
         this.service.getCharacteristic(Characteristic.CurrentTemperature).updateValue(json.currentTemperature);
-        this.log("[*] Updated CurrentTemperature:", json.currentTemperature);
+        this.log('[*] Updated CurrentTemperature:', json.currentTemperature);
         this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState).updateValue(json.targetHeatingCoolingState);
-        this.log("[*] Updated TargetHeatingCoolingState:", json.targetHeatingCoolingState);
+        this.log('[*] Updated TargetHeatingCoolingState:', json.targetHeatingCoolingState);
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(json.currentHeatingCoolingState);
-        this.log("[*] Updated CurrentHeatingCoolingState:", json.currentHeatingCoolingState);
+        this.log('[*] Updated CurrentHeatingCoolingState:', json.currentHeatingCoolingState);
         if (this.temperatureThresholds) {
           this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(json.coolingThresholdTemperature);
-          this.log("[*] Updated CoolingThresholdTemperature:", json.coolingThresholdTemperature);
+          this.log('[*] Updated CoolingThresholdTemperature:', json.coolingThresholdTemperature);
           this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(json.heatingThresholdTemperature);
-          this.log("[*] Updated HeatingThresholdTemperature:", json.heatingThresholdTemperature);
+          this.log('[*] Updated HeatingThresholdTemperature:', json.heatingThresholdTemperature);
         }
         if (this.currentHumidity) {
           this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity);
-          this.log("[*] Updated CurrentRelativeHumidity:", json.currentRelativeHumidity);
+          this.log('[*] Updated CurrentRelativeHumidity:', json.currentRelativeHumidity);
         }
         if (this.targetHumidity) {
           this.service.getCharacteristic(Characteristic.TargetRelativeHumidity).updateValue(json.targetRelativeHumidity);
-          this.log("[*] Updated TargetRelativeHumidity:", json.targetRelativeHumidity);
+          this.log('[*] Updated TargetRelativeHumidity:', json.targetRelativeHumidity);
         }
         callback();
       }
@@ -106,14 +106,14 @@ Thermostat.prototype = {
 
   setTargetHeatingCoolingState: function(value, callback) {
     url = this.apiroute + '/targetHeatingCoolingState/' + value;
-    this.log("[+] Setting targetHeatingCoolingState:", url);
+    this.log('[+] Setting targetHeatingCoolingState:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error setting targetHeatingCoolingState: %s", error.message);
+        this.log('[!] Error setting targetHeatingCoolingState: %s', error.message);
         callback(error);
       } else {
-        this.log("[*] Sucessfully set targetHeatingCoolingState to:", value);
+        this.log('[*] Sucessfully set targetHeatingCoolingState to:', value);
         this.service.setCharacteristic(Characteristic.CurrentHeatingCoolingState, value);
         callback();
       }
@@ -121,60 +121,60 @@ Thermostat.prototype = {
   },
 
   setTargetTemperature: function(value, callback) {
-    var url = this.apiroute + "/targetTemperature/" + value;
-    this.log("[+] Setting targetTemperature:", url);
+    var url = this.apiroute + '/targetTemperature/' + value;
+    this.log('[+] Setting targetTemperature:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error setting targetTemperature", error.message);
+        this.log('[!] Error setting targetTemperature', error.message);
         callback(error);
       } else {
-        this.log("[*] Sucessfully set targetTemperature to:", value);
+        this.log('[*] Sucessfully set targetTemperature to:', value);
         callback();
       }
     }.bind(this));
   },
 
   setTargetRelativeHumidity: function(value, callback) {
-    var url = this.apiroute + "/targetRelativeHumidity/" + value;
-    this.log("[+] Setting targetRelativeHumidity:", url);
+    var url = this.apiroute + '/targetRelativeHumidity/' + value;
+    this.log('[+] Setting targetRelativeHumidity:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error setting targetRelativeHumidity", error.message);
+        this.log('[!] Error setting targetRelativeHumidity', error.message);
         callback(error);
       } else {
-        this.log("[*] Sucessfully set targetRelativeHumidity to:", value);
+        this.log('[*] Sucessfully set targetRelativeHumidity to:', value);
         callback();
       }
     }.bind(this));
   },
 
   setCoolingThresholdTemperature: function(value, callback) {
-    var url = this.apiroute + "/coolingThresholdTemperature/" + value;
-    this.log("[+] Setting coolingThresholdTemperature:", url);
+    var url = this.apiroute + '/coolingThresholdTemperature/' + value;
+    this.log('[+] Setting coolingThresholdTemperature:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error setting coolingThresholdTemperature", error.message);
+        this.log('[!] Error setting coolingThresholdTemperature', error.message);
         callback(error);
       } else {
-        this.log("[*] Sucessfully set coolingThresholdTemperature to:", value);
+        this.log('[*] Sucessfully set coolingThresholdTemperature to:', value);
         callback();
       }
     }.bind(this));
   },
 
   setHeatingThresholdTemperature: function(value, callback) {
-    var url = this.apiroute + "/heatingThresholdTemperature/" + value;
-    this.log("[+] Setting heatingThresholdTemperature:", url);
+    var url = this.apiroute + '/heatingThresholdTemperature/' + value;
+    this.log('[+] Setting heatingThresholdTemperature:', url);
 
     this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
       if (error) {
-        this.log("[!] Error setting heatingThresholdTemperature", error.message);
+        this.log('[!] Error setting heatingThresholdTemperature', error.message);
         callback(error);
       } else {
-        this.log("[*] Sucessfully set heatingThresholdTemperature to:", value);
+        this.log('[*] Sucessfully set heatingThresholdTemperature to:', value);
         callback();
       }
     }.bind(this));
