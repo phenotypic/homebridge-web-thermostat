@@ -51,9 +51,9 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | `http_method` _(optional)_ | The HTTP method used to communicate with the thermostat | `GET` |
 | `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
 | `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
-| `model` _(optional)_ | Appears under "Model" for your accessory in the Home app | `homebridge-web-thermostat` |
-| `serial` _(optional)_ | Appears under "Serial" for your accessory in the Home app | `HTTP Serial Number` |
-| `manufacturer` _(optional)_ | Appears under "Manufacturer" for your accessory in the Home app | `HTTP Manufacturer` |
+| `model` _(optional)_ | Appears under the "Model" field for the device | `homebridge-web-thermostat` |
+| `serial` _(optional)_ | Appears under the "Serial" field for the device | apiroute |
+| `manufacturer` _(optional)_ | Appears under the "Manufacturer" field for the device | `Tom Rodrigues` |
 
 ## API Interfacing
 
@@ -85,22 +85,24 @@ Your API should be able to:
 /targetTemperature/{FLOAT_VALUE}
 ```
 
-4. Set `targetRelativeHumidity` (**if enabled in the `config.json`**) when it receives:
+### Additional (if enabled in the configuration):
+
+4. Set `targetRelativeHumidity` when it receives:
 ```
 /targetRelativeHumidity/{FLOAT_VALUE}
 ```
 
-5. Set `coolingThresholdTemperature` (**if enabled in the `config.json`**) when it receives:
+5. Set `coolingThresholdTemperature` when it receives:
 ```
 /coolingThresholdTemperature/{FLOAT_VALUE}
 ```
 
-6. Set `heatingThresholdTemperature` (**if enabled in the `config.json`**) when it receives:
+6. Set `heatingThresholdTemperature` when it receives:
 ```
 /heatingThresholdTemperature/{FLOAT_VALUE}
 ```
 
-### HeatingCoolingState Key
+## HeatingCoolingState Key
 
 | Number | Name |
 | --- | --- |
