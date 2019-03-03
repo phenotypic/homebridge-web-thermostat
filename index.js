@@ -27,8 +27,7 @@ function Thermostat(log, config) {
   this.coolingThresholdTemperature = config.coolingThresholdTemperature || 30;
   this.heatingThresholdTemperature = config.heatingThresholdTemperature || 20;
 
-  this.currentHumidity = config.currentHumidity || false;
-  this.targetHumidity = config.targetHumidity || false;
+  this.currentRelativeHumidity = config.currentRelativeHumidity || false;
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0;
   this.maxTemp = config.maxTemp || 30;
   this.minTemp = config.minTemp || 15;
@@ -75,7 +74,7 @@ Thermostat.prototype = {
         this.log('[!] Error getting status: %s', error.message);
         callback(error);
       } else {
-        this.log("[*] Thermostat response:", responseBody);
+        this.log('[*] Thermostat response:', responseBody);
         var json = JSON.parse(responseBody);
         this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature);
         this.log('[*] Updated TargetTemperature:', json.targetTemperature);
@@ -91,13 +90,9 @@ Thermostat.prototype = {
           this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(json.heatingThresholdTemperature);
           this.log('[*] Updated HeatingThresholdTemperature:', json.heatingThresholdTemperature);
         }
-        if (this.currentHumidity) {
+        if (this.currentRelativeHumidity) {
           this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity);
           this.log('[*] Updated CurrentRelativeHumidity:', json.currentRelativeHumidity);
-        }
-        if (this.targetHumidity) {
-          this.service.getCharacteristic(Characteristic.TargetRelativeHumidity).updateValue(json.targetRelativeHumidity);
-          this.log('[*] Updated TargetRelativeHumidity:', json.targetRelativeHumidity);
         }
         callback();
       }
@@ -130,21 +125,6 @@ Thermostat.prototype = {
         callback(error);
       } else {
         this.log('[*] Sucessfully set targetTemperature to:', value);
-        callback();
-      }
-    }.bind(this));
-  },
-
-  setTargetRelativeHumidity: function(value, callback) {
-    var url = this.apiroute + '/targetRelativeHumidity/' + value;
-    this.log('[+] Setting targetRelativeHumidity:', url);
-
-    this._httpRequest(url, '', this.http_method, function(error, response, responseBody) {
-      if (error) {
-        this.log('[!] Error setting targetRelativeHumidity', error.message);
-        callback(error);
-      } else {
-        this.log('[*] Sucessfully set targetRelativeHumidity to:', value);
         callback();
       }
     }.bind(this));
@@ -219,12 +199,6 @@ Thermostat.prototype = {
       this.service
         .getCharacteristic(Characteristic.HeatingThresholdTemperature)
         .on('set', this.setHeatingThresholdTemperature.bind(this));
-    }
-
-    if (this.targetHumidity) {
-      this.service
-        .getCharacteristic(Characteristic.TargetRelativeHumidity)
-        .on('set', this.setTargetRelativeHumidity.bind(this));
     }
 
     this._getStatus(function() {}.bind(this));

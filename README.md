@@ -36,8 +36,7 @@ homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controlla
 | Key | Description | Default |
 | --- | --- | --- |
 | `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
-| `currentHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
-| `targetHumidity` _(optional)_ | Whether to include `targetRelativeHumidity` as a field in `/status` and be able to set it via `/targetRelativeHumidity` | `false` |
+| `currentRelativeHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
 | `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app | `30` |
 | `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app | `15` |
 | `temperatureThresholds` _(optional)_ | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
@@ -71,7 +70,6 @@ Your API should be able to:
 
 **Note:** You must also include the following fields in `/status` if enabled in the `config.json`:
 
-- `targetRelativeHumidity`
 - `currentRelativeHumidity`
 - `coolingThresholdTemperature` & `heatingThresholdTemperature`
 
@@ -87,17 +85,12 @@ Your API should be able to:
 
 ### Additional (if enabled in the configuration):
 
-4. Set `targetRelativeHumidity` when it receives:
-```
-/targetRelativeHumidity/{FLOAT_VALUE}
-```
-
-5. Set `coolingThresholdTemperature` when it receives:
+4. Set `coolingThresholdTemperature` when it receives:
 ```
 /coolingThresholdTemperature/{FLOAT_VALUE}
 ```
 
-6. Set `heatingThresholdTemperature` when it receives:
+5. Set `heatingThresholdTemperature` when it receives:
 ```
 /heatingThresholdTemperature/{FLOAT_VALUE}
 ```
