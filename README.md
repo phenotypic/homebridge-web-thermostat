@@ -4,7 +4,7 @@
 
 ## Description
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based thermostat to to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, you can set the thermostat mode, control the termparature and even more.
+This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, you can set the thermostat mode, control the termparature and even more.
 
 ## Installation
 
