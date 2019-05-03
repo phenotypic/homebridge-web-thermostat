@@ -1,10 +1,10 @@
 # homebridge-web-thermostat
 
-#### Homebridge plugin to control a web-based thermostat
+[![npm](https://img.shields.io/npm/dt/homebridge-web-thermostat.svg)](https://www.npmjs.com/package/homebridge-web-thermostat) [![npm](https://img.shields.io/npm/v/homebridge-web-thermostat.svg)](https://www.npmjs.com/package/homebridge-web-thermostat)
 
 ## Description
 
-homebridge-web-thermostat exposes a thermostat to HomeKit and makes it controllable via HTTP requests. The plugin will poll your thermostat at regular intervals and present you with this information when requested. The plugin also allows you so control a number thermostat variables via HomeKit such as the target temperature.
+This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-thermostat boiler to to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, you can set the thermostat mode, control the termparature and even more.
 
 ## Installation
 
