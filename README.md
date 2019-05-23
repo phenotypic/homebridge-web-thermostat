@@ -61,9 +61,9 @@ Your API should be able to:
 1. Return thermostat info when it receives `/status` in the JSON format like below:
 ```
 {
-    "targetHeatingCoolingState": INT_VALUE_0_TO_3,
-    "targetTemperature": FLOAT_VALUE,
-    "currentHeatingCoolingState": INT_VALUE_0_TO_2,
+    "targetHeatingCoolingState": INT_VALUE,
+    "targetTemperature": INT_VALUE,
+    "currentHeatingCoolingState": INT_VALUE,
     "currentTemperature": FLOAT_VALUE
 }
 ```
@@ -75,24 +75,24 @@ Your API should be able to:
 
 2. Set `targetHeatingCoolingState` when it receives:
 ```
-/targetHeatingCoolingState/{INT_VALUE_0_TO_3}
+/targetHeatingCoolingState/INT_VALUE
 ```
 
 3. Set `targetTemperature` when it receives:
 ```
-/targetTemperature/{FLOAT_VALUE}
+/targetTemperature/INT_VALUE
 ```
 
 ### Additional (if enabled in the configuration):
 
 4. Set `coolingThresholdTemperature` when it receives:
 ```
-/coolingThresholdTemperature/{FLOAT_VALUE}
+/coolingThresholdTemperature/INT_VALUE
 ```
 
 5. Set `heatingThresholdTemperature` when it receives:
 ```
-/heatingThresholdTemperature/{FLOAT_VALUE}
+/heatingThresholdTemperature/INT_VALUE
 ```
 
 ## HeatingCoolingState Key
