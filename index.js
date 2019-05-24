@@ -109,7 +109,7 @@ Thermostat.prototype = {
         this.log('[!] Error setting targetHeatingCoolingState: %s', error.message);
         callback(error);
       } else {
-        this.log('[*] Sucessfully set targetHeatingCoolingState to:', value);
+        this.log('[*] Successfully set targetHeatingCoolingState to:', value);
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(value);
         callback();
       }
@@ -125,7 +125,7 @@ Thermostat.prototype = {
         this.log('[!] Error setting targetTemperature', error.message);
         callback(error);
       } else {
-        this.log('[*] Sucessfully set targetTemperature to:', value);
+        this.log('[*] Successfully set targetTemperature to:', value);
         callback();
       }
     }.bind(this));
@@ -140,7 +140,7 @@ Thermostat.prototype = {
         this.log('[!] Error setting coolingThresholdTemperature', error.message);
         callback(error);
       } else {
-        this.log('[*] Sucessfully set coolingThresholdTemperature to:', value);
+        this.log('[*] Successfully set coolingThresholdTemperature to:', value);
         callback();
       }
     }.bind(this));
@@ -155,7 +155,7 @@ Thermostat.prototype = {
         this.log('[!] Error setting heatingThresholdTemperature', error.message);
         callback(error);
       } else {
-        this.log('[*] Sucessfully set heatingThresholdTemperature to:', value);
+        this.log('[*] Successfully set heatingThresholdTemperature to:', value);
         callback();
       }
     }.bind(this));
