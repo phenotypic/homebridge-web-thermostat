@@ -29,7 +29,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | --- | --- | --- |
 | `accessory` | Must be `Thermostat` | N/A |
 | `name` | Name to appear in the Home app | N/A |
-| `apiroute` | Root URL of your Thermostat device (excluding the rest of the requests) | N/A |
+| `apiroute` | Root URL of your device (excluding the rest of the requests) | N/A |
 | `pollInterval` _(optional)_ | Time (in seconds) between when homebridge will check the `/status` of your thermostat | `60` |
 
 ### Optional fields
