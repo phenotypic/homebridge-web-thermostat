@@ -4,7 +4,7 @@
 
 ## Description
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, you can set the thermostat mode, control the termparature and even more.
+This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the thermostat mode and control the target temperature.
 
 ## Installation
 
@@ -29,8 +29,8 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | --- | --- | --- |
 | `accessory` | Must be `Thermostat` | N/A |
 | `name` | Name to appear in the Home app | N/A |
-| `apiroute` | Root URL of your device (excluding the rest of the requests) | N/A |
-| `pollInterval` _(optional)_ | Time (in seconds) between when homebridge will check the `/status` of your thermostat | `60` |
+| `apiroute` | Root URL of your device | N/A |
+| `pollInterval` _(optional)_ | Time (in seconds) between device polls | `60` |
 
 ### Optional fields
 | Key | Description | Default |
@@ -46,19 +46,19 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 ### Additional options
 | Key | Description | Default |
 | --- | --- | --- |
-| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable | `3000` |
-| `http_method` _(optional)_ | The HTTP method used to communicate with the thermostat | `GET` |
+| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `3000` |
+| `http_method` _(optional)_ | HTTP method used to communicate with the device | `GET` |
 | `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
 | `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
-| `model` _(optional)_ | Appears under the "Model" field for the device | `homebridge-web-thermostat` |
-| `serial` _(optional)_ | Appears under the "Serial" field for the device | apiroute |
-| `manufacturer` _(optional)_ | Appears under the "Manufacturer" field for the device | `Tom Rodrigues` |
+| `model` _(optional)_ | Appears under the _Model_ field for the accessory | `homebridge-web-thermostat` |
+| `serial` _(optional)_ | Appears under the _Serial_ field for the accessory | apiroute |
+| `manufacturer` _(optional)_ | Appears under the _Manufacturer_ field for the accessory | `Tom Rodrigues` |
 
 ## API Interfacing
 
 Your API should be able to:
 
-1. Return thermostat info when it receives `/status` in the JSON format like below:
+1. Return JSON information when it receives `/status`:
 ```
 {
     "targetHeatingCoolingState": INT_VALUE,
