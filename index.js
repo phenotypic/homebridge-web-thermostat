@@ -1,5 +1,6 @@
 var Service, Characteristic;
-var request = require('request');
+const request = require('request');
+const packageJson = require('./package.json')
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -14,9 +15,10 @@ function Thermostat(log, config) {
   this.apiroute = config.apiroute;
   this.pollInterval = config.pollInterval || 60;
 
-  this.manufacturer = config.manufacturer || 'Tom Rodrigues';
+  this.manufacturer = config.manufacturer || packageJson.author.name;
   this.serial = config.serial || this.apiroute;
-  this.model = config.model || 'homebridge-web-thermostat';
+  this.model = config.model || packageJson.name;
+  this.firmware = config.firmware || packageJson.version;
 
   this.username = config.username || null;
   this.password = config.password || null;
@@ -167,7 +169,8 @@ Thermostat.prototype = {
     this.informationService
       .setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
       .setCharacteristic(Characteristic.Model, this.model)
-      .setCharacteristic(Characteristic.SerialNumber, this.serial);
+      .setCharacteristic(Characteristic.SerialNumber, this.serial)
+      .setCharacteristic(Characteristic.FirmwareRevision, this.firmware);
 
     this.service.getCharacteristic(Characteristic.TemperatureDisplayUnits).updateValue(this.temperatureDisplayUnits);
 

@@ -50,9 +50,10 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `http_method` _(optional)_ | HTTP method used to communicate with the device | `GET` |
 | `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
 | `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
-| `model` _(optional)_ | Appears under the _Model_ field for the accessory | `homebridge-web-thermostat` |
+| `model` _(optional)_ | Appears under the _Model_ field for the accessory | plugin |
 | `serial` _(optional)_ | Appears under the _Serial_ field for the accessory | apiroute |
-| `manufacturer` _(optional)_ | Appears under the _Manufacturer_ field for the accessory | `Tom Rodrigues` |
+| `manufacturer` _(optional)_ | Appears under the _Manufacturer_ field for the accessory | author |
+| `firmware` _(optional)_ | Appears under the _Firmware_ field for the accessory | version |
 
 ## API Interfacing
 
