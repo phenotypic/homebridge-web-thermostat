@@ -41,7 +41,7 @@ function Thermostat (log, config) {
     }
   }
 
-  this.log(this.name, this.apiroute)
+  this.log('%s initialized', this.name)
 
   this.service = new Service.Thermostat(this.name)
 }
@@ -73,7 +73,7 @@ Thermostat.prototype = {
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log('[!] Error getting status: %s', error.message)
+        this.log.warn('[!] Error getting status: %s', error.message)
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(new Error('Polling failed'))
         callback(error)
       } else {
@@ -108,7 +108,7 @@ Thermostat.prototype = {
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log('[!] Error setting targetHeatingCoolingState: %s', error.message)
+        this.log.warn('[!] Error setting targetHeatingCoolingState: %s', error.message)
         callback(error)
       } else {
         this.log('[*] Successfully set targetHeatingCoolingState to: %s', value)
@@ -124,7 +124,7 @@ Thermostat.prototype = {
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log('[!] Error setting targetTemperature: %s', error.message)
+        this.log.warn('[!] Error setting targetTemperature: %s', error.message)
         callback(error)
       } else {
         this.log('[*] Successfully set targetTemperature to: %s', value)
@@ -139,7 +139,7 @@ Thermostat.prototype = {
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log('[!] Error setting coolingThresholdTemperature: %s', error.message)
+        this.log.warn('[!] Error setting coolingThresholdTemperature: %s', error.message)
         callback(error)
       } else {
         this.log('[*] Successfully set coolingThresholdTemperature to: %s', value)
@@ -154,7 +154,7 @@ Thermostat.prototype = {
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log('[!] Error setting heatingThresholdTemperature: %s', error.message)
+        this.log.warn('[!] Error setting heatingThresholdTemperature: %s', error.message)
         callback(error)
       } else {
         this.log('[*] Successfully set heatingThresholdTemperature to: %s', value)
