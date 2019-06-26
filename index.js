@@ -41,8 +41,6 @@ function Thermostat (log, config) {
     }
   }
 
-  this.log('%s initialized', this.name)
-
   this.service = new Service.Thermostat(this.name)
 }
 
@@ -69,33 +67,33 @@ Thermostat.prototype = {
 
   _getStatus: function (callback) {
     var url = this.apiroute + '/status'
-    this.log('[+] Getting status: %s', url)
+    this.log('Getting status: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log.warn('[!] Error getting status: %s', error.message)
+        this.log.warn('Error getting status: %s', error.message)
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(new Error('Polling failed'))
         callback(error)
       } else {
-        this.log('[*] Thermostat response: %s', responseBody)
+        this.log('Thermostat response: %s', responseBody)
         var json = JSON.parse(responseBody)
         this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature)
-        this.log('[*] Updated TargetTemperature: %s', json.targetTemperature)
+        this.log('Updated TargetTemperature: %s', json.targetTemperature)
         this.service.getCharacteristic(Characteristic.CurrentTemperature).updateValue(json.currentTemperature)
-        this.log('[*] Updated CurrentTemperature: %s', json.currentTemperature)
+        this.log('Updated CurrentTemperature: %s', json.currentTemperature)
         this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState).updateValue(json.targetHeatingCoolingState)
-        this.log('[*] Updated TargetHeatingCoolingState: %s', json.targetHeatingCoolingState)
+        this.log('Updated TargetHeatingCoolingState: %s', json.targetHeatingCoolingState)
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(json.currentHeatingCoolingState)
-        this.log('[*] Updated CurrentHeatingCoolingState: %s', json.currentHeatingCoolingState)
+        this.log('Updated CurrentHeatingCoolingState: %s', json.currentHeatingCoolingState)
         if (this.temperatureThresholds) {
           this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(json.coolingThresholdTemperature)
-          this.log('[*] Updated CoolingThresholdTemperature: %s', json.coolingThresholdTemperature)
+          this.log('Updated CoolingThresholdTemperature: %s', json.coolingThresholdTemperature)
           this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(json.heatingThresholdTemperature)
-          this.log('[*] Updated HeatingThresholdTemperature: %s', json.heatingThresholdTemperature)
+          this.log('Updated HeatingThresholdTemperature: %s', json.heatingThresholdTemperature)
         }
         if (this.currentRelativeHumidity) {
           this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity)
-          this.log('[*] Updated CurrentRelativeHumidity: %s', json.currentRelativeHumidity)
+          this.log('Updated CurrentRelativeHumidity: %s', json.currentRelativeHumidity)
         }
         callback()
       }
@@ -104,14 +102,14 @@ Thermostat.prototype = {
 
   setTargetHeatingCoolingState: function (value, callback) {
     var url = this.apiroute + '/targetHeatingCoolingState/' + value
-    this.log('[+] Setting targetHeatingCoolingState: %s', url)
+    this.log('Setting targetHeatingCoolingState: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log.warn('[!] Error setting targetHeatingCoolingState: %s', error.message)
+        this.log.warn('Error setting targetHeatingCoolingState: %s', error.message)
         callback(error)
       } else {
-        this.log('[*] Successfully set targetHeatingCoolingState to: %s', value)
+        this.log('Successfully set targetHeatingCoolingState to: %s', value)
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(value)
         callback()
       }
@@ -120,14 +118,14 @@ Thermostat.prototype = {
 
   setTargetTemperature: function (value, callback) {
     var url = this.apiroute + '/targetTemperature/' + value
-    this.log('[+] Setting targetTemperature: %s', url)
+    this.log('Setting targetTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log.warn('[!] Error setting targetTemperature: %s', error.message)
+        this.log.warn('Error setting targetTemperature: %s', error.message)
         callback(error)
       } else {
-        this.log('[*] Successfully set targetTemperature to: %s', value)
+        this.log('Successfully set targetTemperature to: %s', value)
         callback()
       }
     }.bind(this))
@@ -135,14 +133,14 @@ Thermostat.prototype = {
 
   setCoolingThresholdTemperature: function (value, callback) {
     var url = this.apiroute + '/coolingThresholdTemperature/' + value
-    this.log('[+] Setting coolingThresholdTemperature: %s', url)
+    this.log('Setting coolingThresholdTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log.warn('[!] Error setting coolingThresholdTemperature: %s', error.message)
+        this.log.warn('Error setting coolingThresholdTemperature: %s', error.message)
         callback(error)
       } else {
-        this.log('[*] Successfully set coolingThresholdTemperature to: %s', value)
+        this.log('Successfully set coolingThresholdTemperature to: %s', value)
         callback()
       }
     }.bind(this))
@@ -150,14 +148,14 @@ Thermostat.prototype = {
 
   setHeatingThresholdTemperature: function (value, callback) {
     var url = this.apiroute + '/heatingThresholdTemperature/' + value
-    this.log('[+] Setting heatingThresholdTemperature: %s', url)
+    this.log('Setting heatingThresholdTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
       if (error) {
-        this.log.warn('[!] Error setting heatingThresholdTemperature: %s', error.message)
+        this.log.warn('Error setting heatingThresholdTemperature: %s', error.message)
         callback(error)
       } else {
-        this.log('[*] Successfully set heatingThresholdTemperature to: %s', value)
+        this.log('Successfully set heatingThresholdTemperature to: %s', value)
         callback()
       }
     }.bind(this))
