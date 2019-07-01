@@ -42,11 +42,13 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `temperatureThresholds` _(optional)_ | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
 | `coolingThresholdTemperature` _(optional)_ | Cooling threshold temperature if thresholds are enabled | `30` |
 | `heatingThresholdTemperature` _(optional)_ | Heating threshold temperature if thresholds are enabled | `20` |
+| `listener` | Whether to start a listener to get real-time changes from the device | `false` |
 
 ### Additional options
 | Key | Description | Default |
 | --- | --- | --- |
 | `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `3000` |
+| `port` _(optional)_ | Port for your HTTP listener (if enabled) | `2000` |
 | `http_method` _(optional)_ | HTTP method used to communicate with the device | `GET` |
 | `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
 | `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
@@ -84,14 +86,34 @@ Your API should be able to:
 /targetTemperature/INT_VALUE
 ```
 
-### Additional (if enabled in the configuration):
-
-4. Set `coolingThresholdTemperature` when it receives:
+4. _(if enabled)_ Set `coolingThresholdTemperature` when it receives:
 ```
 /coolingThresholdTemperature/INT_VALUE
 ```
 
-5. Set `heatingThresholdTemperature` when it receives:
+5. _(if enabled)_ `heatingThresholdTemperature` when it receives:
+```
+/heatingThresholdTemperature/INT_VALUE
+```
+
+### Optional (if listener is enabled)
+
+1. Update `targetHeatingCoolingState` following a manual override by messaging the listen server:
+```
+/targetHeatingCoolingState/INT_VALUE
+```
+
+2. Update `targetTemperature` following a manual override by messaging the listen server:
+```
+/targetTemperature/INT_VALUE
+```
+
+3. _(if enabled)_ Update `coolingThresholdTemperature` following a manual override by messaging the listen server:
+```
+/coolingThresholdTemperature/INT_VALUE
+```
+
+4. _(if enabled)_ Update `heatingThresholdTemperature` following a manual override by messaging the listen server:
 ```
 /heatingThresholdTemperature/INT_VALUE
 ```
