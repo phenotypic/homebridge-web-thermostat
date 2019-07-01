@@ -1,8 +1,8 @@
 var Service, Characteristic
+const packageJson = require('./package.json')
 const request = require('request')
 const ip = require('ip')
 const http = require('http')
-const packageJson = require('./package.json')
 
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service
@@ -15,7 +15,8 @@ function Thermostat (log, config) {
 
   this.name = config.name
   this.apiroute = config.apiroute
-  this.pollInterval = config.pollInterval || 60
+  this.pollInterval = config.pollInterval || 300
+
   this.listener = config.listener || false
   this.port = config.port || 2000
   this.requestArray = ['targetHeatingCoolingState', 'targetTemperature', 'coolingThresholdTemperature', 'heatingThresholdTemperature']
