@@ -30,11 +30,11 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `accessory` | Must be `Thermostat` | N/A |
 | `name` | Name to appear in the Home app | N/A |
 | `apiroute` | Root URL of your device | N/A |
-| `pollInterval` _(optional)_ | Time (in seconds) between device polls | `60` |
 
 ### Optional fields
 | Key | Description | Default |
 | --- | --- | --- |
+| `pollInterval` _(optional)_ | Time (in seconds) between device polls | `300` |
 | `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
 | `currentRelativeHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
 | `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app | `30` |
