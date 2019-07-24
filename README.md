@@ -34,28 +34,28 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 ### Optional fields
 | Key | Description | Default |
 | --- | --- | --- |
-| `pollInterval` _(optional)_ | Time (in seconds) between device polls | `300` |
-| `temperatureDisplayUnits` _(optional)_ | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
-| `currentRelativeHumidity` _(optional)_ | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
-| `maxTemp` _(optional)_ | Upper bound for the temperature selector in the Home app | `30` |
-| `minTemp` _(optional)_ | Lower bound for the temperature selector in the Home app | `15` |
-| `temperatureThresholds` _(optional)_ | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
-| `coolingThresholdTemperature` _(optional)_ | Cooling threshold temperature if thresholds are enabled | `30` |
-| `heatingThresholdTemperature` _(optional)_ | Heating threshold temperature if thresholds are enabled | `20` |
-| `listener` | Whether to start a listener to get real-time changes from the device | `false` |
+| `temperatureDisplayUnits` | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
+| `currentRelativeHumidity` | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
+| `maxTemp` | Upper bound for the temperature selector in the Home app | `30` |
+| `minTemp` | Lower bound for the temperature selector in the Home app | `15` |
+| `temperatureThresholds` | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
+| `coolingThresholdTemperature` | Cooling threshold temperature if thresholds are enabled | `30` |
+| `heatingThresholdTemperature` | Heating threshold temperature if thresholds are enabled | `20` |
 
 ### Additional options
 | Key | Description | Default |
 | --- | --- | --- |
-| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `3000` |
-| `port` _(optional)_ | Port for your HTTP listener (if enabled) | `2000` |
-| `http_method` _(optional)_ | HTTP method used to communicate with the device | `GET` |
-| `username` _(optional)_ | Username if HTTP authentication is enabled | N/A |
-| `password` _(optional)_ | Password if HTTP authentication is enabled | N/A |
-| `model` _(optional)_ | Appears under the _Model_ field for the accessory | plugin |
-| `serial` _(optional)_ | Appears under the _Serial_ field for the accessory | apiroute |
-| `manufacturer` _(optional)_ | Appears under the _Manufacturer_ field for the accessory | author |
-| `firmware` _(optional)_ | Appears under the _Firmware_ field for the accessory | version |
+| `listener` | Whether to start a listener to get real-time changes from the device | `false` |
+| `pollInterval` | Time (in seconds) between device polls | `300` |
+| `timeout` | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `3000` |
+| `port` | Port for your HTTP listener (if enabled) | `2000` |
+| `http_method` | HTTP method used to communicate with the device | `GET` |
+| `username` | Username if HTTP authentication is enabled | N/A |
+| `password` | Password if HTTP authentication is enabled | N/A |
+| `model` | Appears under the _Model_ field for the accessory | plugin |
+| `serial` | Appears under the _Serial_ field for the accessory | apiroute |
+| `manufacturer` | Appears under the _Manufacturer_ field for the accessory | author |
+| `firmware` | Appears under the _Firmware_ field for the accessory | version |
 
 ## API Interfacing
 
