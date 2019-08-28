@@ -239,7 +239,7 @@ Thermostat.prototype = {
       .setProps({
         minValue: this.minTemp,
         maxValue: this.maxTemp,
-        minStep: 1
+        minStep: 0.5
       })
 
     if (this.temperatureThresholds) {
