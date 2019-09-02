@@ -32,8 +32,6 @@ function Thermostat (log, config) {
   this.http_method = config.http_method || 'GET'
 
   this.temperatureThresholds = config.temperatureThresholds || false
-  this.coolingThresholdTemperature = config.coolingThresholdTemperature || 30
-  this.heatingThresholdTemperature = config.heatingThresholdTemperature || 20
 
   this.currentRelativeHumidity = config.currentRelativeHumidity || false
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0
