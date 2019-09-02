@@ -39,8 +39,6 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `maxTemp` | Upper bound for the temperature selector in the Home app | `30` |
 | `minTemp` | Lower bound for the temperature selector in the Home app | `15` |
 | `temperatureThresholds` | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
-| `coolingThresholdTemperature` | Cooling threshold temperature if thresholds are enabled | `30` |
-| `heatingThresholdTemperature` | Heating threshold temperature if thresholds are enabled | `20` |
 
 ### Additional options
 | Key | Description | Default |
