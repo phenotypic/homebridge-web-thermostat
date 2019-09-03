@@ -231,13 +231,6 @@ Thermostat.prototype = {
         minStep: 0.5
       })
 
-    this.service.getCharacteristic(Characteristic.CurrentTemperature)
-      .setProps({
-        minValue: -100,
-        maxValue: 100,
-        minStep: 0.1
-      })
-
     if (this.temperatureThresholds) {
       this.service
         .getCharacteristic(Characteristic.CoolingThresholdTemperature)
