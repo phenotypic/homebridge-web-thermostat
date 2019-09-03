@@ -225,6 +225,11 @@ Thermostat.prototype = {
     this.service
       .getCharacteristic(Characteristic.TargetTemperature)
       .on('set', this.setTargetTemperature.bind(this))
+      .setProps({
+        minValue: this.minTemp,
+        maxValue: this.maxTemp,
+        minStep: 0.5
+      })
 
     this.service.getCharacteristic(Characteristic.CurrentTemperature)
       .setProps({
@@ -233,30 +238,24 @@ Thermostat.prototype = {
         minStep: 0.1
       })
 
-    this.service.getCharacteristic(Characteristic.TargetTemperature)
-      .setProps({
-        minValue: this.minTemp,
-        maxValue: this.maxTemp,
-        minStep: 0.5
-      })
-
     if (this.temperatureThresholds) {
       this.service
         .getCharacteristic(Characteristic.CoolingThresholdTemperature)
+        .on('set', this.setCoolingThresholdTemperature.bind(this))
         .setProps({
           minValue: this.minTemp,
           maxValue: this.maxTemp,
           minStep: 0.5
         })
-        .on('set', this.setCoolingThresholdTemperature.bind(this))
+
       this.service
         .getCharacteristic(Characteristic.HeatingThresholdTemperature)
+        .on('set', this.setHeatingThresholdTemperature.bind(this))
         .setProps({
           minValue: this.minTemp,
           maxValue: this.maxTemp,
           minStep: 0.5
         })
-        .on('set', this.setHeatingThresholdTemperature.bind(this))
     }
 
     this._getStatus(function () {})
