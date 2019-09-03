@@ -243,9 +243,19 @@ Thermostat.prototype = {
     if (this.temperatureThresholds) {
       this.service
         .getCharacteristic(Characteristic.CoolingThresholdTemperature)
+        .setProps({
+          minValue: this.minTemp,
+          maxValue: this.maxTemp,
+          minStep: 0.5
+        })
         .on('set', this.setCoolingThresholdTemperature.bind(this))
       this.service
         .getCharacteristic(Characteristic.HeatingThresholdTemperature)
+        .setProps({
+          minValue: this.minTemp,
+          maxValue: this.maxTemp,
+          minStep: 0.5
+        })
         .on('set', this.setHeatingThresholdTemperature.bind(this))
     }
 
