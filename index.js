@@ -164,6 +164,7 @@ Thermostat.prototype = {
   },
 
   setTargetTemperature: function (value, callback) {
+    value = value.toFixed(1)
     var url = this.apiroute + '/targetTemperature/' + value
     this.log.debug('Setting targetTemperature: %s', url)
 
@@ -179,6 +180,7 @@ Thermostat.prototype = {
   },
 
   setCoolingThresholdTemperature: function (value, callback) {
+    value = value.toFixed(1)
     var url = this.apiroute + '/coolingThresholdTemperature/' + value
     this.log.debug('Setting coolingThresholdTemperature: %s', url)
 
@@ -194,6 +196,7 @@ Thermostat.prototype = {
   },
 
   setHeatingThresholdTemperature: function (value, callback) {
+    value = value.toFixed(1)
     var url = this.apiroute + '/heatingThresholdTemperature/' + value
     this.log.debug('Setting heatingThresholdTemperature: %s', url)
 
