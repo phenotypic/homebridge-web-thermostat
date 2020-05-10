@@ -102,22 +102,22 @@ Thermostat.prototype = {
         this.log.debug('Device response: %s', responseBody)
         var json = JSON.parse(responseBody)
         this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature)
-        this.log('Updated TargetTemperature to: %s', json.targetTemperature)
+        this.log.debug('Updated TargetTemperature to: %s', json.targetTemperature)
         this.service.getCharacteristic(Characteristic.CurrentTemperature).updateValue(json.currentTemperature)
-        this.log('Updated CurrentTemperature to: %s', json.currentTemperature)
+        this.log.debug('Updated CurrentTemperature to: %s', json.currentTemperature)
         this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState).updateValue(json.targetHeatingCoolingState)
-        this.log('Updated TargetHeatingCoolingState to: %s', json.targetHeatingCoolingState)
+        this.log.debug('Updated TargetHeatingCoolingState to: %s', json.targetHeatingCoolingState)
         this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(json.currentHeatingCoolingState)
-        this.log('Updated CurrentHeatingCoolingState to: %s', json.currentHeatingCoolingState)
+        this.log.debug('Updated CurrentHeatingCoolingState to: %s', json.currentHeatingCoolingState)
         if (this.temperatureThresholds) {
           this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(json.coolingThresholdTemperature)
-          this.log('Updated CoolingThresholdTemperature to: %s', json.coolingThresholdTemperature)
+          this.log.debug('Updated CoolingThresholdTemperature to: %s', json.coolingThresholdTemperature)
           this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(json.heatingThresholdTemperature)
-          this.log('Updated HeatingThresholdTemperature to: %s', json.heatingThresholdTemperature)
+          this.log.debug('Updated HeatingThresholdTemperature to: %s', json.heatingThresholdTemperature)
         }
         if (this.currentRelativeHumidity) {
           this.service.getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(json.currentRelativeHumidity)
-          this.log('Updated CurrentRelativeHumidity to: %s', json.currentRelativeHumidity)
+          this.log.debug('Updated CurrentRelativeHumidity to: %s', json.currentRelativeHumidity)
         }
         callback()
       }
