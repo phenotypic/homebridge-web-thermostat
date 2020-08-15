@@ -37,6 +37,7 @@ function Thermostat (log, config) {
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0
   this.maxTemp = config.maxTemp || 30
   this.minTemp = config.minTemp || 15
+  this.minStep = config.minStep || 0.5
 
   if (this.username != null && this.password != null) {
     this.auth = {
@@ -230,7 +231,7 @@ Thermostat.prototype = {
       .setProps({
         minValue: this.minTemp,
         maxValue: this.maxTemp,
-        minStep: 0.5
+        minStep: this.minStep
       })
 
     if (this.temperatureThresholds) {
@@ -240,7 +241,7 @@ Thermostat.prototype = {
         .setProps({
           minValue: this.minTemp,
           maxValue: this.maxTemp,
-          minStep: 0.5
+          minStep: this.minStep
         })
 
       this.service
@@ -249,7 +250,7 @@ Thermostat.prototype = {
         .setProps({
           minValue: this.minTemp,
           maxValue: this.maxTemp,
-          minStep: 0.5
+          minStep: this.minStep
         })
     }
 

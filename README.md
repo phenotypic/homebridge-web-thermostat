@@ -46,6 +46,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `currentRelativeHumidity` | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
 | `maxTemp` | Upper bound for the temperature selector in the Home app | `30` |
 | `minTemp` | Lower bound for the temperature selector in the Home app | `15` |
+| `minStep` | Minimum increment value for the temperature selector in the Home app | `0.5` |
 | `temperatureThresholds` | Whether you want the thermostat accessory to have heating and cooling temperature thresholds | `false` |
 
 ### Additional options
