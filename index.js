@@ -33,6 +33,8 @@ function Thermostat (log, config) {
 
   this.temperatureThresholds = config.temperatureThresholds || false
 
+  this.heatOnly = config.heatOnly || false;
+
   this.currentRelativeHumidity = config.currentRelativeHumidity || false
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0
   this.maxTemp = config.maxTemp || 30
@@ -253,7 +255,16 @@ Thermostat.prototype = {
           minStep: this.minStep
         })
     }
-
+    
+    if (this.heatOnly) {
+			this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState)
+				.setProps({
+					minValue: 0,
+					maxValue: 1,
+					validValues: [0,1]
+				});
+		}
+    
     this._getStatus(function () {})
 
     setInterval(function () {
