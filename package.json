@@ -1,6 +1,6 @@
 {
   "name": "homebridge-web-thermostat",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Homebridge plugin for a web-based thermostat",
   "main": "index.js",
   "dependencies": {
