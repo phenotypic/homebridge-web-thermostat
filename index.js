@@ -32,8 +32,7 @@ function Thermostat (log, config) {
   this.http_method = config.http_method || 'GET'
 
   this.temperatureThresholds = config.temperatureThresholds || false
-
-  this.heatOnly = config.heatOnly || false;
+  this.heatOnly = config.heatOnly || false
 
   this.currentRelativeHumidity = config.currentRelativeHumidity || false
   this.temperatureDisplayUnits = config.temperatureDisplayUnits || 0
@@ -227,6 +226,13 @@ Thermostat.prototype = {
       .getCharacteristic(Characteristic.TargetHeatingCoolingState)
       .on('set', this.setTargetHeatingCoolingState.bind(this))
 
+    if (this.heatOnly) {
+      this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState)
+        .setProps({
+          maxValue: Characteristic.TargetHeatingCoolingState.HEAT
+        })
+    }
+
     this.service
       .getCharacteristic(Characteristic.TargetTemperature)
       .on('set', this.setTargetTemperature.bind(this))
@@ -255,16 +261,7 @@ Thermostat.prototype = {
           minStep: this.minStep
         })
     }
-    
-    if (this.heatOnly) {
-			this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState)
-				.setProps({
-					minValue: 0,
-					maxValue: 1,
-					validValues: [0,1]
-				});
-		}
-    
+
     this._getStatus(function () {})
 
     setInterval(function () {
