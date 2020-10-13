@@ -44,6 +44,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | --- | --- | --- |
 | `temperatureDisplayUnits` | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
 | `currentRelativeHumidity` | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
+| `heatOnly` _(optional)_ | (`true` or `false`) Whether the thermostat only supports heating (`true`) or heating and cooling (`false`) (`false` is default) |
 | `maxTemp` | Upper bound for the temperature selector in the Home app | `30` |
 | `minTemp` | Lower bound for the temperature selector in the Home app | `15` |
 | `minStep` | Minimum increment value for the temperature selector in the Home app | `0.5` |
