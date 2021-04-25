@@ -42,7 +42,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 ### Optional fields
 | Key | Description | Default |
 | --- | --- | --- |
-| `validStates` | Which states you would like to enable (see [HeatingCoolingState Key](#heatingcoolingstate-key)) | [0, 1, 2, 3] |
+| `validStates` | Which states you would like to enable (see [key](#heatingcoolingstate-key)) | `[0, 1, 2, 3]` |
 | `temperatureDisplayUnits` | Whether you want °C (`0`) or °F (`1`) as your units | `0` |
 | `currentRelativeHumidity` | Whether to include `currentRelativeHumidity` as a field in `/status` | `false` |
 | `maxTemp` | Upper bound for the temperature selector in the Home app | `30` |
