@@ -16,6 +16,7 @@ function Thermostat (log, config) {
   this.name = config.name
   this.apiroute = config.apiroute
   this.pollInterval = config.pollInterval || 300
+  this.validStates = config.validStates || [0, 1, 2, 3]
 
   this.listener = config.listener || false
   this.port = config.port || 2000
@@ -226,12 +227,10 @@ Thermostat.prototype = {
       .getCharacteristic(Characteristic.TargetHeatingCoolingState)
       .on('set', this.setTargetHeatingCoolingState.bind(this))
 
-    if (this.heatOnly) {
-      this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState)
-        .setProps({
-          maxValue: Characteristic.TargetHeatingCoolingState.HEAT
-        })
-    }
+    this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState)
+      .setProps({
+        validValues: this.validStates
+      })
 
     this.service
       .getCharacteristic(Characteristic.TargetTemperature)
