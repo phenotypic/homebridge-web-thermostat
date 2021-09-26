@@ -20,6 +20,7 @@ function Thermostat (log, config) {
 
   this.listener = config.listener || false
   this.port = config.port || 2000
+  this.checkupDelay = config.checkupDelay || 2000
   this.requestArray = ['targetHeatingCoolingState', 'targetTemperature', 'coolingThresholdTemperature', 'heatingThresholdTemperature']
 
   this.manufacturer = config.manufacturer || packageJson.author.name
@@ -159,7 +160,9 @@ Thermostat.prototype = {
         callback(error)
       } else {
         this.log('Set targetHeatingCoolingState to: %s', value)
-        this.service.getCharacteristic(Characteristic.CurrentHeatingCoolingState).updateValue(value)
+        setTimeout(function() {
+          this._getStatus(function () {})
+        }.bind(this), this.checkupDelay)
         callback()
       }
     }.bind(this))
