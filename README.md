@@ -12,11 +12,11 @@
 
 ## Description
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the thermostat mode and control the target temperature.
+This [homebridge](https://github.com/homebridge/homebridge) plugin exposes a web-based thermostat to Apple's [HomeKit](http://www.apple.com/ios/home/). Using simple HTTP requests, the plugin allows you to set the thermostat mode and control the target temperature.
 
 ## Installation
 
-1. Install [homebridge](https://github.com/nfarina/homebridge#installation-details)
+1. Install [homebridge](https://github.com/homebridge/homebridge#installation)
 2. Install this plugin: `npm install -g homebridge-web-thermostat`
 3. Update your `config.json` file
 
@@ -55,6 +55,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | --- | --- | --- |
 | `listener` | Whether to start a listener to get real-time changes from the device | `false` |
 | `pollInterval` | Time (in seconds) between device polls | `300` |
+| `checkupDelay` | Time (in milliseconds) after setting `HeatingCoolingState` to update `targetHeatingCoolingState` and `currentHeatingCoolingState` | `2000` |
 | `timeout` | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `3000` |
 | `port` | Port for your HTTP listener (if enabled) | `2000` |
 | `http_method` | HTTP method used to communicate with the device | `GET` |
