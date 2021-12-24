@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tommrodrigues/homebridge-web-thermostat.git"
+    "url": "git+https://github.com/phenotypic/homebridge-web-thermostat.git"
   },
   "keywords": [
     "homebridge-plugin"
   ],
-  "author": "Tom Rodrigues",
+  "author": "phenotypic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tommrodrigues/homebridge-web-thermostat/issues"
+    "url": "https://github.com/phenotypic/homebridge-web-thermostat/issues"
   },
-  "homepage": "https://github.com/Tommrodrigues/homebridge-web-thermostat#readme"
+  "homepage": "https://github.com/phenotypic/homebridge-web-thermostat#readme"
 }
