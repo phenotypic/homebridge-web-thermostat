@@ -1,4 +1,4 @@
-var Service, Characteristic
+let Service, Characteristic
 const packageJson = require('./package.json')
 const request = require('request')
 const ip = require('ip')
@@ -51,12 +51,16 @@ function Thermostat (log, config) {
 
   if (this.listener) {
     this.server = http.createServer(function (request, response) {
-      var baseURL = 'http://' + request.headers.host + '/'
-      var url = new URL(request.url, baseURL)
+      const baseURL = 'http://' + request.headers.host + '/'
+      const url = new URL(request.url, baseURL)
       if (this.requestArray.includes(url.pathname.substr(1))) {
-        this.log.debug('Handling request')
-        response.end('Handling request')
-        this._httpHandler(url.pathname.substr(1), url.searchParams.get('value'))
+        try {
+          this.log.debug('Handling request')
+          response.end('Handling request')
+          this._httpHandler(url.pathname.substr(1), url.searchParams.get('value'))
+        } catch (e) {
+          this.log.warn('Error parsing request: %s', e.message)
+        }
       } else {
         this.log.warn('Invalid request: %s', request.url)
         response.end('Invalid request')
@@ -93,7 +97,7 @@ Thermostat.prototype = {
   },
 
   _getStatus: function (callback) {
-    var url = this.apiroute + '/status'
+    const url = this.apiroute + '/status'
     this.log.debug('Getting status: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
@@ -104,7 +108,7 @@ Thermostat.prototype = {
       } else {
         this.log.debug('Device response: %s', responseBody)
         try {
-          var json = JSON.parse(responseBody)
+          const json = JSON.parse(responseBody)
           this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(json.targetTemperature)
           this.log.debug('Updated TargetTemperature to: %s', json.targetTemperature)
           this.service.getCharacteristic(Characteristic.CurrentTemperature).updateValue(json.currentTemperature)
@@ -133,29 +137,34 @@ Thermostat.prototype = {
 
   _httpHandler: function (characteristic, value) {
     switch (characteristic) {
-      case 'targetHeatingCoolingState':
+      case 'targetHeatingCoolingState': {
         this.service.getCharacteristic(Characteristic.TargetHeatingCoolingState).updateValue(value)
         this.log('Updated %s to: %s', characteristic, value)
         break
-      case 'targetTemperature':
+      }
+      case 'targetTemperature': {
         this.service.getCharacteristic(Characteristic.TargetTemperature).updateValue(value)
         this.log('Updated %s to: %s', characteristic, value)
         break
-      case 'coolingThresholdTemperature':
+      }
+      case 'coolingThresholdTemperature': {
         this.service.getCharacteristic(Characteristic.CoolingThresholdTemperature).updateValue(value)
         this.log('Updated %s to: %s', characteristic, value)
         break
-      case 'heatingThresholdTemperature':
+      }
+      case 'heatingThresholdTemperature': {
         this.service.getCharacteristic(Characteristic.HeatingThresholdTemperature).updateValue(value)
         this.log('Updated %s to: %s', characteristic, value)
         break
-      default:
+      }
+      default: {
         this.log.warn('Unknown characteristic "%s" with value "%s"', characteristic, value)
+      }
     }
   },
 
   setTargetHeatingCoolingState: function (value, callback) {
-    var url = this.apiroute + '/targetHeatingCoolingState?value=' + value
+    const url = this.apiroute + '/targetHeatingCoolingState?value=' + value
     this.log.debug('Setting targetHeatingCoolingState: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
@@ -164,7 +173,7 @@ Thermostat.prototype = {
         callback(error)
       } else {
         this.log('Set targetHeatingCoolingState to: %s', value)
-        setTimeout(function() {
+        setTimeout(function () {
           this._getStatus(function () {})
         }.bind(this), this.checkupDelay)
         callback()
@@ -174,7 +183,7 @@ Thermostat.prototype = {
 
   setTargetTemperature: function (value, callback) {
     value = value.toFixed(1)
-    var url = this.apiroute + '/targetTemperature?value=' + value
+    const url = this.apiroute + '/targetTemperature?value=' + value
     this.log.debug('Setting targetTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
@@ -190,7 +199,7 @@ Thermostat.prototype = {
 
   setCoolingThresholdTemperature: function (value, callback) {
     value = value.toFixed(1)
-    var url = this.apiroute + '/coolingThresholdTemperature?value=' + value
+    const url = this.apiroute + '/coolingThresholdTemperature?value=' + value
     this.log.debug('Setting coolingThresholdTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
@@ -206,7 +215,7 @@ Thermostat.prototype = {
 
   setHeatingThresholdTemperature: function (value, callback) {
     value = value.toFixed(1)
-    var url = this.apiroute + '/heatingThresholdTemperature?value=' + value
+    const url = this.apiroute + '/heatingThresholdTemperature?value=' + value
     this.log.debug('Setting heatingThresholdTemperature: %s', url)
 
     this._httpRequest(url, '', this.http_method, function (error, response, responseBody) {
@@ -253,7 +262,7 @@ Thermostat.prototype = {
       .setProps({
         minValue: -600,
         maxValue: 600
-      });
+      })
 
     if (this.temperatureThresholds) {
       this.service
